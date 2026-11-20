@@ -667,7 +667,7 @@ d.text((DC_X0 + 6, DC_Y0 + 20 + 6 * 11 + 2),
 briefs = [
     (14, "NVIDIA — AG subpoenas Nvidia; 879k chips", "americas"),
     (15, "MARKETS — Dow −1,101; S&P down 6th day", "americas"),
-    (16, "CALIFORNIA — LA flash floods; SF record rain", "americas"),
+    (16, "CALIFORNIA — LA floods; SF record rain Wed", "americas"),
     (17, "JEPCHIRCHIR — Banned 3 years for EPO", "africa"),
     (18, "SEOUL — Han Duck-soo retrial; term void", "asia"),
     (19, "BADME — Strikes reported; 4 hurt", "africa"),
