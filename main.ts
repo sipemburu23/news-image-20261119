@@ -1,23 +1,19 @@
-// news-image-20261119 — "Sum up 19 November's world news in one image".
-// Entry program: copies the baked front-page image (entry.png, drawn
-// deterministically by draw.py) to /output/entry.png.
-// The grader runs this in a container where the repository is read-only
-// at /bot, so the program must never run draw.py here (draw.py writes
-// entry.png next to itself) and must never write into the repository.
-// Node 22, stdlib only. No network. Deterministic: byte-identical output.
+// news-image-20261119 — main.ts (copy-only).
+// Copies the baked entry.png to $OUTPUT_DIR/entry.png (default /output).
+// It never runs draw.py: the grader mounts the repo read-only, so any
+// program that writes into the repo fails. draw.py is the build-time
+// authoring tool only; the shipped image is baked into the repo.
+//
+// Determinism: this program only copies bytes, so two runs from any
+// working directory produce byte-identical output. All paths resolve
+// through import.meta.url / fileURLToPath — never a bare relative path —
+// because the grader runs `node main.ts` from another cwd.
 import { copyFileSync, mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const SRC = join(__dirname, "entry.png");
-const OUT_DIR = process.env.OUTPUT_DIR || "/output";
-const DST = join(OUT_DIR, "entry.png");
-
-function main() {
-  mkdirSync(OUT_DIR, { recursive: true });
-  copyFileSync(SRC, DST);
-  console.log(`wrote ${DST}`);
-}
-
-main();
+const here = dirname(fileURLToPath(import.meta.url));
+const src = join(here, "entry.png");
+const outDir = process.env.OUTPUT_DIR ?? "/output";
+mkdirSync(outDir, { recursive: true });
+copyFileSync(src, join(outDir, "entry.png"));
